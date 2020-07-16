@@ -13,19 +13,19 @@ LENGTH = 100
 TOT_POP = int(LENGTH**2)
 C_POP = int(TOT_POP*3333/10000)
 D_POP = int(TOT_POP*3334/10000)
-PD_POP = TOT_POP - C_POP - D_POP
-PC_POP = 0
+PC_POP = TOT_POP - C_POP - D_POP
+PD_POP = 0
 POP = [C_POP,D_POP,PC_POP,PD_POP]
-GEN = TOT_POP*10**4
+GEN = TOT_POP*10**3
 RUNS = 1
 VISUALIZE = True
 a= 1
 r = 3.8
 K = 0.5
-c= 0.05
-fine = 0.6
+c= 0.2
+fine = 0.3
 avg_deg = 4.
-req_gen = np.array([20,200,1000,10000])*TOT_POP
+req_gen = np.array([10,40,150,1000])*TOT_POP
 
 G= square_lattice(LENGTH)
 set_population(G,POP)
@@ -70,10 +70,10 @@ for gen in range(GEN):
     print("Generation {}/{} {} {:.1%} Runtime : {:.1f} secs".format((gen+1)//TOT_POP, GEN//TOT_POP, bar, (gen+1)/GEN,end_time-start_time),end='\r')
     if VISUALIZE and gen+1 in req_gen:
         plot_lattice(G1,ax1)
-        plt.savefig(f'Figure_{(gen+1)//TOT_POP}.png')
+        plt.savefig(f'./Figures/Figure_{(gen+1)//TOT_POP}.png')
 print(" "*100,end='\r')
 print("Runtime :", end_time-start_time, 'secs')
-pickle.dump(np.array([gen_list,cpop_,dpop_,ppop_]),open('./data.pickle','wb'))
+#pickle.dump(np.array([gen_list,cpop_,dpop_,ppop_]),open('./data.pickle','wb'))
 ax = plt.figure().add_subplot(1,1,1)
 ax.set_xscale('log')
 gen_list = np.array(gen_list)
@@ -84,7 +84,7 @@ ax.set_xlabel('iterations')
 ax.set_ylabel('fractions')
 #plt.title(f"c = {c}  fine = {fine}")
 plt.legend(loc='best')
-plt.savefig('sql_evoltion.png')
+plt.savefig('./Figures/sql_evolution.png')
 '''
 file = open('data2.txt','a')
 for i in range(len(cpop_)):
