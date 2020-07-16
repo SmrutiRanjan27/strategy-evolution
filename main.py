@@ -50,7 +50,7 @@ for n in NODES:
         FILTERED_NODES.remove(n)
 
 pop_ = POP.copy()
-cpop_,ppop_, dpop_ = [C_POP/TOT_POP],[PD_POP/TOT_POP],[D_POP/TOT_POP]
+cpop_,ppop_, dpop_ = [C_POP/TOT_POP],[PC_POP/TOT_POP],[D_POP/TOT_POP]
 if VISUALIZE:
     ax1 = plt.figure().add_subplot(111)
     ax1.set(aspect='equal')
@@ -63,7 +63,7 @@ for gen in range(GEN):
     if gen+2 >= (10**(0.01))*gen_list[-1]:
         cpop_.append((pop_[0])/TOT_POP)
         dpop_.append((pop_[1])/TOT_POP)
-        ppop_.append((pop_[3])/TOT_POP)
+        ppop_.append((pop_[2])/TOT_POP)
         gen_list.append(gen+2)
     bar = '\u2588'*((gen+1)*bar_len//GEN)+'\u2591'*(bar_len-(gen+1)*bar_len//GEN)
     end_time = time.time()
@@ -79,7 +79,7 @@ ax.set_xscale('log')
 gen_list = np.array(gen_list)
 ax.plot(gen_list/TOT_POP,cpop_,label='Cooperators',color='blue')
 ax.plot(gen_list/TOT_POP,dpop_,label='Defectors',color='red')
-ax.plot(gen_list/TOT_POP,ppop_,label='Punishers (D)',color='green')
+ax.plot(gen_list/TOT_POP,ppop_,label='Punishers (C)',color='green')
 ax.set_xlabel('iterations')
 ax.set_ylabel('fractions')
 #plt.title(f"c = {c}  fine = {fine}")
